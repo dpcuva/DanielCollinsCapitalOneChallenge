@@ -9,7 +9,7 @@ def home(request):
     response = requests.get(
         'https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY')
     imageData = response.json()
-    return render(request, 'search/home.html', {
+    return render(request, 'home.html', {
         'Picture': imageData['url'],
         'Description': imageData['explanation']
     })
@@ -18,7 +18,7 @@ def home(request):
 def query(request):
     if request.method == 'GET':
         form = searchForm()
-        return render(request, 'search/query.html', {'form': form})
+        return render(request, 'query.html', {'form': form})
 
 
 def results(request):
