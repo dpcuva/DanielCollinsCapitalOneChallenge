@@ -9,7 +9,7 @@ def home(request):
     response = requests.get(
         'https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY')
     imageData = response.json()
-    return render(request, 'home.html', {
+    return render(request, '/home.html', {
         'Picture': imageData['url'],
         'Description': imageData['explanation']
     })
