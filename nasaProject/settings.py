@@ -25,7 +25,7 @@ SECRET_KEY = '*-o!dyh$=8^unn6bl8utrby)x-z!b(5(1qg(z*k@-q#o(s(2c%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'nasa-image-finder.herokuapp.com']
 
 
 # Application definition
