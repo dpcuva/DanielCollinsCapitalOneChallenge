@@ -63,7 +63,7 @@ def results(request):
 
             if (len(urlAtt) != 0):
                 response = requests.get(
-                    'https://images-api.nasa.gov/search?' + urllib.parse.urlencode(urlAtt, doseq=True))
+                    'https://images-api.nasa.gov/search?media_type=image&' + urllib.parse.urlencode(urlAtt, doseq=True))
                 imageData = response.json()
             else:
                 response = requests.get(

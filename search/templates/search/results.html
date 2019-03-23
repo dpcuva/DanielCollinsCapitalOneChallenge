@@ -4,6 +4,7 @@
         th,
         td {
             border: 1px solid black;
+            word-wrap: break-word;
         }
     </style>
 </head>
@@ -22,23 +23,23 @@
         <strong>Upper_Year_Bound:</strong>{{Upper_Bound}} <strong>General Search:</strong> {{General}}
         <strong>Title:</strong> {{Title}} <strong>NASA_ID:</strong> {{NASA_ID}} |</p>
     <p><strong>Link to Source:</strong> {{ Href }} </p>
-    <table style="width:100%">
+    <table width="100%" cellspacing="0" cellpadding="0">
         <tr>
             <th>Picture Link</th>
             <th>Title</th>
+            <th>Description</th>
             <th>Date Created</th>
             <th>Keywords</th>
             <th>NASA_ID</th>
-            <th>Description</th>
         </tr>
         {% for datum in Items %}
         <tr>
             <td><img src={{datum.links.0.href}}></td>
             <td>{{datum.data.0.title}}</td>
+            <td>{{datum.data.0.description}}</td>
             <td>{{datum.data.0.date_created}}</td>
             <td>{{datum.data.0.keywords}}</td>
             <td>{{datum.data.0.nasa_id}}</td>
-            <td>{{datum.data.0.description}}</td>
         </tr>
         {% endfor %}
         </tr>
