@@ -11,3 +11,5 @@ class searchForm(forms.Form):
     Key_Words = forms.CharField(required=False, max_length=400)
     Lower_Year_Bound = forms.IntegerField(required=False, help_text='(YYYY)')
     Upper_Year_Bound = forms.IntegerField(required=False, help_text='(YYYY)')
+    Page = forms.IntegerField(
+        required=False, help_text='100 Results per page (defaults to the first)')

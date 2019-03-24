@@ -9,20 +9,20 @@ def home(request):
     response = requests.get(
         'https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY')
     imageData = response.json()
-    return render(request, 'search/home.html', {
-        'Picture': imageData['url'],
-        'Description': imageData['explanation']
-    })
-
-
-def query(request):
-    if request.method == 'GET':
-        form = searchForm()
-        return render(request, 'search/query.html', {'form': form})
+    if (imageData["media_type"] == 'video'):
+        dic = {
+            'Description': imageData['explanation'],
+            'Video': imageData['url']
+        }
+    else:
+        dic = dic = {
+            'Description': imageData['explanation'],
+            'Picture': imageData['url']
+        }
+    return render(request, 'search/home.html', dic)
 
 
 def results(request):
-
     if request.method == 'GET':
         # create a form instance and populate it with data from the request:
         form = searchForm(request.GET)
@@ -34,6 +34,7 @@ def results(request):
             s4 = form.cleaned_data.get('General_Search')
             s5 = form.cleaned_data.get('Title')
             s6 = form.cleaned_data.get('NASA_ID')
+            s7 = form.cleaned_data.get('Page')
 
             urlAtt = dict()
             if (s1 != ''):
@@ -60,6 +61,10 @@ def results(request):
                 urlAtt['nasa_id'] = s6
             else:
                 s6 = "None Given"
+            if (s7 != None):
+                urlAtt['page'] = str(s7)
+            else:
+                s7 = "1"
 
             if (len(urlAtt) != 0):
                 response = requests.get(
@@ -80,7 +85,9 @@ def results(request):
             'General': s4,
             'Title': s5,
             'NASA_ID': s6,
+            'Page': s7,
             'Hits': imageData["collection"]['metadata']["total_hits"],
             'Href': imageData["collection"]["href"],
-            'Items': items
+            'Items': items,
+            'Form': form
         })

@@ -1,28 +1,71 @@
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
     <style>
         table,
-        th,
+        th {
+            text-align: center;
+            border: 5px solid rgba(20, 4, 250, 0.884);
+        }
+
         td {
-            border: 1px solid black;
+            table-layout: auto;
+            border: 5px solid rgba(20, 4, 250, 0.884);
             word-wrap: break-word;
+            text-align: left;
+            width: fit-content;
+        }
+
+        .imageFormat {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
         }
     </style>
 </head>
 
 <body>
 
-    <form action="/search/" method="GET">
-        <input type="submit" value="Home">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <form action="/home/" method="GET">
+                        <input type="submit" value="Home">
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <h1>Search</strong></h1>
+    <form action="/home/results/" method="GET">
+        {{Form.as_p}}
+        <input type="submit" value="Search">
     </form>
-    <form action="/search/query" method="GET">
-        <input type="submit" value="Back to Search">
-    </form>
+
     <h1>Results</strong></h1>
     <p><Strong>Number of Hits: </Strong>{{Hits}}</p>
     <p>Search Terms Used| <strong>Keywords:</strong> {{Keywords}} <strong>Lower_Year_Bound:</strong> {{Lower_Bound}}
         <strong>Upper_Year_Bound:</strong>{{Upper_Bound}} <strong>General Search:</strong> {{General}}
         <strong>Title:</strong> {{Title}} <strong>NASA_ID:</strong> {{NASA_ID}} |</p>
     <p><strong>Link to Source:</strong> {{ Href }} </p>
+    <p>Viewing Page {{Page}}</p>
+
     <table width="100%" cellspacing="0" cellpadding="0">
         <tr>
             <th>Picture Link</th>
@@ -34,12 +77,12 @@
         </tr>
         {% for datum in Items %}
         <tr>
-            <td><img src={{datum.links.0.href}}></td>
+            <td><img src={{datum.links.0.href}} class='imageFormat'></td>
             <td>{{datum.data.0.title}}</td>
             <td>{{datum.data.0.description}}</td>
             <td>{{datum.data.0.date_created}}</td>
-            <td>{{datum.data.0.keywords}}</td>
-            <td>{{datum.data.0.nasa_id}}</td>
+            <td>{{datum.data.0.keywords|join:", "}}</td>
+            <td style="max-width:20px;">{{datum.data.0.nasa_id}}</td>
         </tr>
         {% endfor %}
         </tr>
